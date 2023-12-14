@@ -1,0 +1,9 @@
+<persistence-unit name="myPersistenceUnit" transaction-type="RESOURCE_LOCAL">
+    <class>your.package.name.User</class>
+    <properties>
+        <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/orlovsky_poharek"/>
+        <property name="javax.persistence.jdbc.user" value="root"/>
+        <property name="javax.persistence.jdbc.password" value="Roman123"/>
+        <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+    </properties>
+</persistence-unit>
