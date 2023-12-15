@@ -6,6 +6,7 @@ var form = document.getElementById("mainForm");
 form.addEventListener("submit", function (event) {
   event.preventDefault();
   validateForm();
+
 });
 
 function validateForm() {

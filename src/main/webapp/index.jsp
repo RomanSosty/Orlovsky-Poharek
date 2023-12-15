@@ -51,7 +51,7 @@
             Každá choreografie musí mít svou přihlášku!
         </h2>
     </div>
-    <form id="mainForm" class="mx-auto mt-16 max-w-xl sm:mt-20">
+    <form id="mainForm" action="saveApplicationForm" method="post" class="mx-auto mt-16 max-w-xl sm:mt-20">
         <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
             <div class="sm:col-span-2">
                 <label
