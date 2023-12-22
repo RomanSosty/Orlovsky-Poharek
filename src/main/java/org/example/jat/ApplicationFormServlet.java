@@ -80,4 +80,14 @@ public class ApplicationFormServlet extends HttpServlet {
         applicationForm.setMessage(message);
         return applicationForm;
     }
+
+    private Dance getDance(){
+        Dance dance = new Dance();
+        dance.setName(nameOfChoreografi);
+        dance.setChoreographer(nameOfChoreografer);
+        dance.setCategory(danceCategory);
+        dance.setNumOfDancer(numberOfDancer);
+        dance.setLenght(lenghtOfDance);
+        return dance;
+    }
 }
