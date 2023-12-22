@@ -8,6 +8,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.transaction.Transactional;
+
 import java.io.IOException;
 import java.sql.Time;
 import java.time.LocalTime;
@@ -27,6 +29,7 @@ public class ApplicationFormServlet extends HttpServlet {
     private String message;
 
     private static final String PERSISTENCE_UNIT_NAME = "myPersistenceUnit";
+    @Transactional
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         nameOfClub = request.getParameter("groupName");
@@ -47,8 +50,11 @@ public class ApplicationFormServlet extends HttpServlet {
 
         try {
             tx.begin();
+            Dance dance = getDance();
+            em.persist(dance);
 
             ApplicationForm applicationForm = getApplicationForm();
+            applicationForm.setDance(dance);
             em.persist(applicationForm);
 
             tx.commit();
@@ -69,12 +75,7 @@ public class ApplicationFormServlet extends HttpServlet {
         ApplicationForm applicationForm = new ApplicationForm();
         applicationForm.setNameOfClub(nameOfClub);
         applicationForm.setContact(contact);
-        applicationForm.setNameOfChoreografi(nameOfChoreografi);
         applicationForm.setAgeCategory(ageCategory);
-        applicationForm.setDanceCategory(danceCategory);
-        applicationForm.setNameOfChoreografer(nameOfChoreografer);
-        applicationForm.setNumberOfDancer(numberOfDancer);
-        applicationForm.setLenghtOfDance(lenghtOfDance);
         applicationForm.setNumberOfDancerInGroup(numberOfDancerInGroup);
         applicationForm.setMeansOfTransport(meansOfTransport);
         applicationForm.setMessage(message);

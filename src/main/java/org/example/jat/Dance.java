@@ -1,9 +1,6 @@
 package org.example.jat;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.io.Serializable;
 @Entity
@@ -16,6 +13,8 @@ public class Dance implements Serializable {
     private String category;
     private int numOfDancer;
     private String lenght;
+    @OneToOne(mappedBy = "dance",cascade = CascadeType.ALL)
+    private ApplicationForm applicationForm;
 
     public Long getId() {
         return id;
@@ -63,5 +62,13 @@ public class Dance implements Serializable {
 
     public void setLenght(String lenght) {
         this.lenght = lenght;
+    }
+
+    public ApplicationForm getApplicationForm() {
+        return applicationForm;
+    }
+
+    public void setApplicationForm(ApplicationForm applicationForm) {
+        this.applicationForm = applicationForm;
     }
 }
