@@ -9,15 +9,16 @@ public class ApplicationForm implements Serializable {
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private Long id;
-    private String nameOfClub;
     private String contact;
     private String ageCategory;
-    private int numberOfDancerInGroup;
     private String meansOfTransport;
     private String message;
     @OneToOne
     @JoinColumn(name = "dance_Id")
     private Dance dance;
+    @OneToOne
+    @JoinColumn(name = "danceGroup_Id")
+    private DanceGroup dancegroup;
 
     public Long getId() {
         return id;
@@ -25,14 +26,6 @@ public class ApplicationForm implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getNameOfClub() {
-        return nameOfClub;
-    }
-
-    public void setNameOfClub(String nameOfClub) {
-        this.nameOfClub = nameOfClub;
     }
 
     public String getContact() {
@@ -49,15 +42,6 @@ public class ApplicationForm implements Serializable {
 
     public void setAgeCategory(String ageCategory) {
         this.ageCategory = ageCategory;
-    }
-
-
-    public int getNumberOfDancerInGroup() {
-        return numberOfDancerInGroup;
-    }
-
-    public void setNumberOfDancerInGroup(int numberOfDancerInGroup) {
-        this.numberOfDancerInGroup = numberOfDancerInGroup;
     }
 
     public String getMeansOfTransport() {
@@ -82,5 +66,13 @@ public class ApplicationForm implements Serializable {
 
     public void setDance(Dance dance) {
         this.dance = dance;
+    }
+
+    public DanceGroup getDancegroup() {
+        return dancegroup;
+    }
+
+    public void setDancegroup(DanceGroup danceGroup) {
+        this.dancegroup = danceGroup;
     }
 }
