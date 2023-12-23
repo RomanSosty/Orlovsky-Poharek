@@ -1,9 +1,6 @@
 package org.example.jat;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.Persistence;
+import jakarta.persistence.*;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,6 +10,7 @@ import jakarta.transaction.Transactional;
 import java.io.IOException;
 import java.sql.Time;
 import java.time.LocalTime;
+import java.util.Optional;
 
 @WebServlet("/saveApplicationForm")
 public class ApplicationFormServlet extends HttpServlet {
@@ -50,9 +48,14 @@ public class ApplicationFormServlet extends HttpServlet {
 
         try {
             tx.begin();
+
             Dance dance = getDance();
-            DanceGroup danceGroup = getDanceGroup();
             em.persist(dance);
+
+            DanceGroup danceGroup  = duplicityDanceGroup(nameOfClub, em).orElse(null);
+            if(danceGroup == null) {
+                danceGroup = getDanceGroup();
+            }
             em.persist(danceGroup);
 
             ApplicationForm applicationForm = getApplicationForm();
@@ -98,5 +101,18 @@ public class ApplicationFormServlet extends HttpServlet {
         danceGroup.setName(nameOfClub);
         danceGroup.setNumOfDancer(numberOfDancerInGroup);
         return danceGroup;
+    }
+
+    private Optional<DanceGroup> duplicityDanceGroup(String nameOfClub, EntityManager em){
+
+        try {
+            TypedQuery<DanceGroup> query = em.createQuery(
+                    "SELECT k FROM DanceGroup k WHERE k.name = :name", DanceGroup.class);
+            query.setParameter("name", nameOfClub);
+            return Optional.of(query.getSingleResult());
+        }catch (NoResultException e){
+            return Optional.empty();
+        }
+
     }
 }
