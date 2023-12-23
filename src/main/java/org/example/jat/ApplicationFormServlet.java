@@ -51,10 +51,13 @@ public class ApplicationFormServlet extends HttpServlet {
         try {
             tx.begin();
             Dance dance = getDance();
+            DanceGroup danceGroup = getDanceGroup();
             em.persist(dance);
+            em.persist(danceGroup);
 
             ApplicationForm applicationForm = getApplicationForm();
             applicationForm.setDance(dance);
+            applicationForm.setDancegroup(danceGroup);
             em.persist(applicationForm);
 
             tx.commit();
@@ -73,10 +76,8 @@ public class ApplicationFormServlet extends HttpServlet {
 
     private ApplicationForm getApplicationForm() {
         ApplicationForm applicationForm = new ApplicationForm();
-        applicationForm.setNameOfClub(nameOfClub);
         applicationForm.setContact(contact);
         applicationForm.setAgeCategory(ageCategory);
-        applicationForm.setNumberOfDancerInGroup(numberOfDancerInGroup);
         applicationForm.setMeansOfTransport(meansOfTransport);
         applicationForm.setMessage(message);
         return applicationForm;
@@ -90,5 +91,12 @@ public class ApplicationFormServlet extends HttpServlet {
         dance.setNumOfDancer(numberOfDancer);
         dance.setLenght(lenghtOfDance);
         return dance;
+    }
+
+    private DanceGroup getDanceGroup(){
+        DanceGroup danceGroup = new DanceGroup();
+        danceGroup.setName(nameOfClub);
+        danceGroup.setNumOfDancer(numberOfDancerInGroup);
+        return danceGroup;
     }
 }
