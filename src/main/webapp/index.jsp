@@ -6,7 +6,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
-
 <div class="isolate bg-white px-6 py-24 sm:py-32 lg:px-8">
     <div
             class="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]"
@@ -363,9 +362,20 @@
             </div>
         </div>
     </form>
+    <div class="mt-5">
+        <button
+                id="login"
+                aria-checked="false"
+                type="button"
+                class="block w-1/4 rounded-md bg-white border border-gray-300 font-semibold px-2.0 py-1.5 text-center text-sm  shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+        >
+            Přihlásit se
+        </button>
+    </div>
 </div>
 <script type="module" src="js/newMember.js"></script>
 <script type="module" src="js/agreeToPolicy.js"></script>
 <script type="module" src="js/validateForm.js"></script>
+<script type="module" src="js/loginPage.js"></script>
 </body>
 </html>
