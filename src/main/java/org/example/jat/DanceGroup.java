@@ -3,6 +3,8 @@ package org.example.jat;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class DanceGroup implements Serializable {
@@ -11,8 +13,8 @@ public class DanceGroup implements Serializable {
     private Long id;
     private String name;
     private int numOfDancer;
-    @OneToOne(mappedBy = "dancegroup", cascade = CascadeType.ALL)
-    private ApplicationForm applicationForm;
+    @OneToMany(mappedBy = "dancegroup", cascade = CascadeType.ALL)
+    private List<ApplicationForm> applicationForms = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -38,11 +40,11 @@ public class DanceGroup implements Serializable {
         this.numOfDancer = numOfDancer;
     }
 
-    public ApplicationForm getApplicationForm() {
-        return applicationForm;
+    public List<ApplicationForm> getApplicationForms() {
+        return applicationForms;
     }
 
-    public void setApplicationForm(ApplicationForm applicationForm) {
-        this.applicationForm = applicationForm;
+    public void setApplicationForms(List<ApplicationForm> applicationForms) {
+        this.applicationForms = applicationForms;
     }
 }
