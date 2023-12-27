@@ -16,7 +16,7 @@ public class ApplicationForm implements Serializable {
     @OneToOne
     @JoinColumn(name = "dance_Id")
     private Dance dance;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "danceGroup_Id")
     private DanceGroup dancegroup;
 
