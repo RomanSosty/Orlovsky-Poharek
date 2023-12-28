@@ -3,6 +3,9 @@ package org.example.jat;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 public class Dance implements Serializable {
     @Id
@@ -15,6 +18,8 @@ public class Dance implements Serializable {
     private String lenght;
     @OneToOne(mappedBy = "dance",cascade = CascadeType.ALL)
     private ApplicationForm applicationForm;
+    @ManyToMany(mappedBy = "dances")
+    private Set<Member> members = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -70,5 +75,13 @@ public class Dance implements Serializable {
 
     public void setApplicationForm(ApplicationForm applicationForm) {
         this.applicationForm = applicationForm;
+    }
+
+    public Set<Member> getMembers() {
+        return members;
+    }
+
+    public void setMembers(Set<Member> members) {
+        this.members = members;
     }
 }

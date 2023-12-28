@@ -36,15 +36,19 @@ public class ApplicationFormServlet extends HttpServlet {
 
         try {
             tx.begin();
+            Dance dance = getDance();
+
             for(Member member : formResponse.getMembers()){
                 Member mem = new Member();
                 mem.setName(member.getName());
                 mem.setLastName(member.getLastName());
                 mem.setDateOfBirth(member.getDateOfBirth());
+                mem.getDances().add(dance);
+
+                dance.getMembers().add(mem);
                 em.persist(mem);
             }
 
-            Dance dance = getDance();
             em.persist(dance);
 
             DanceGroup danceGroup  = duplicityDanceGroup(formResponse.getGroupName(), em).orElse(null);

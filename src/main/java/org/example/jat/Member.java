@@ -1,9 +1,9 @@
 package org.example.jat;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Member {
@@ -13,7 +13,13 @@ public class Member {
     private String name;
     private String lastName;
     private String dateOfBirth;
-
+    @ManyToMany
+    @JoinTable(
+            name = "member_dance",
+            joinColumns = @JoinColumn(name="member_id"),
+            inverseJoinColumns = @JoinColumn(name = "dance_id")
+    )
+    private Set<Dance> dances = new HashSet<>();
     public Long getId() {
         return id;
     }
@@ -44,5 +50,13 @@ public class Member {
 
     public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public Set<Dance> getDances() {
+        return dances;
+    }
+
+    public void setDances(Set<Dance> dances) {
+        this.dances = dances;
     }
 }
