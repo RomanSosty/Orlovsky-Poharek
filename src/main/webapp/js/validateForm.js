@@ -95,7 +95,18 @@ function confirmForm(applicationForm) {
 
   if (isConfirmed) {
     localStorage.setItem("ApplicationForm", applicationForm);
-    localStorage.removeItem("members");
-    form.submit();
+
+    fetch('/JAT_war_exploded/saveApplicationForm', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(applicationForm),
+    })
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.log(error));
   }
+
+  form.submit();
 }
