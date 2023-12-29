@@ -39,12 +39,11 @@ public class ApplicationFormServlet extends HttpServlet {
             Dance dance = getDance();
 
             for(Member member : formResponse.getMembers()){
-                Member mem = new Member();
-                mem.setName(member.getName());
-                mem.setLastName(member.getLastName());
-                mem.setDateOfBirth(member.getDateOfBirth());
+                Member mem = duplicityMember(member.getName(), member.getLastName(), member.getDateOfBirth(), em).orElse(null);
+                if(mem == null){
+                    mem = getMember(member);
+                }
                 mem.getDances().add(dance);
-
                 dance.getMembers().add(mem);
                 em.persist(mem);
             }
@@ -103,12 +102,38 @@ public class ApplicationFormServlet extends HttpServlet {
         return danceGroup;
     }
 
+    private Member getMember(Member member){
+        Member mem = new Member();
+        mem.setName(member.getName());
+        mem.setLastName(member.getLastName());
+        mem.setDateOfBirth(member.getDateOfBirth());
+        return mem;
+    }
+
     private Optional<DanceGroup> duplicityDanceGroup(String nameOfClub, EntityManager em){
 
         try {
             TypedQuery<DanceGroup> query = em.createQuery(
                     "SELECT k FROM DanceGroup k WHERE k.name = :name", DanceGroup.class);
             query.setParameter("name", nameOfClub);
+            return Optional.of(query.getSingleResult());
+        }catch (NoResultException e){
+            return Optional.empty();
+        }
+
+    }
+
+    private Optional<Member> duplicityMember(String name, String lastName, String dateOfBirth, EntityManager em){
+
+        try {
+            TypedQuery<Member> query = em.createQuery(
+                    "SELECT k FROM Member k " +
+                            "WHERE k.name = :name " +
+                            "AND k.lastName = :lastName " +
+                            "AND k.dateOfBirth = :dateOfBirth", Member.class);
+            query.setParameter("name", name);
+            query.setParameter("lastName", lastName);
+            query.setParameter("dateOfBirth", dateOfBirth);
             return Optional.of(query.getSingleResult());
         }catch (NoResultException e){
             return Optional.empty();
