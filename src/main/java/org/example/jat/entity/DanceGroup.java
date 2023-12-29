@@ -1,6 +1,7 @@
-package org.example.jat;
+package org.example.jat.entity;
 
 import jakarta.persistence.*;
+import org.example.jat.entity.ApplicationForm;
 
 import java.io.Serializable;
 import java.util.ArrayList;

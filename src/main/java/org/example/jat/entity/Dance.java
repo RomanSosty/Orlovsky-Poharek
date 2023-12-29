@@ -1,4 +1,4 @@
-package org.example.jat;
+package org.example.jat.entity;
 
 import jakarta.persistence.*;
 

@@ -1,5 +1,7 @@
 package org.example.jat;
 
+import org.example.jat.entity.Member;
+
 import java.util.List;
 
 public class FormResponse {

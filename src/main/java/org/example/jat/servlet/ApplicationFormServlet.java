@@ -1,4 +1,4 @@
-package org.example.jat;
+package org.example.jat.servlet;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.*;
@@ -6,17 +6,19 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.transaction.Transactional;
+import org.example.jat.FormResponse;
+import org.example.jat.entity.ApplicationForm;
+import org.example.jat.entity.Dance;
+import org.example.jat.entity.DanceGroup;
+import org.example.jat.entity.Member;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.sql.Time;
-import java.time.LocalTime;
 import java.util.Optional;
 
 @WebServlet("/saveApplicationForm")
 public class ApplicationFormServlet extends HttpServlet {
-    private  FormResponse formResponse;
+    private FormResponse formResponse;
     private static final String PERSISTENCE_UNIT_NAME = "myPersistenceUnit";
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
