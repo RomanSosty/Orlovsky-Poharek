@@ -1,6 +1,6 @@
 package org.example.jat;
 
-public class User {
+public class UserResponse {
     private String login;
     private String password;
 

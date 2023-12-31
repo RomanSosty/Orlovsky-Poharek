@@ -1,18 +1,21 @@
 package org.example.jat.servlet;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.persistence.*;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.example.jat.User;
+import org.example.jat.UserResponse;
+import org.example.jat.entity.User;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.Optional;
 
 @WebServlet("/loginPage")
 public class LoginPageServlet extends HttpServlet {
-    private User user;
+    private static final String PERSISTENCE_UNIT_NAME = "loginPersistenceUnit";
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.sendRedirect("login.jsp");
@@ -26,18 +29,53 @@ public class LoginPageServlet extends HttpServlet {
         }
 
         ObjectMapper objectMapper = new ObjectMapper();
-        user = objectMapper.readValue(stringBuilder.toString(), User.class);
+        UserResponse formUserResponse = objectMapper.readValue(stringBuilder.toString(), UserResponse.class);
 
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction tx = em.getTransaction();
 
-        String login = user.getLogin();
-        String password = user.getPassword();
+        try {
+            tx.begin();
+            String login = formUserResponse.getLogin();
+            String password = formUserResponse.getPassword();
 
-        System.out.println("Uživatel: " + login + " Heslo: " + password);
+            User user = loginCheck(password, login, em).orElse(null);
+
+            if(user == null){
+                System.out.println("Přihlášení se nezdařilo");
+            }else{
+                System.out.println("Přihlášen");
+            }
+
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null && tx.isActive()) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            em.close();
+            emf.close();
+        }
 
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
         response.setHeader("Access-Control-Allow-Headers", "Content-Type");
         response.setContentType("application/json");
         response.sendRedirect("login.jsp");
+    }
+
+    private Optional<User> loginCheck(String password, String login, EntityManager em){
+
+        try {
+            TypedQuery<User> query = em.createQuery(
+                    "SELECT k FROM User k WHERE k.login = :login AND k.password = :password", User.class);
+            query.setParameter("password", password);
+            query.setParameter("login", login);
+            return Optional.of(query.getSingleResult());
+        }catch (NoResultException e){
+            return Optional.empty();
+        }
     }
 }
