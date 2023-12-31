@@ -41,6 +41,7 @@
         </form>
     </div>
 </div>
+<script src="js/sha256.js"></script>
 <script type="module" src="js/loginPage.js"></script>
 </body>
 </html>

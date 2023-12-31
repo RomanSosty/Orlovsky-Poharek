@@ -7,13 +7,15 @@ form.addEventListener("submit", function (event) {
 
 function validateLoginForm(){
     const login = document.getElementById("login").value;
-    const password = document.getElementById("password").value;
+    const rawPassword = document.getElementById("password").value;
+    let password = hashPassword(rawPassword)
 
     const user = {
         login: login,
         password: password
     };
 
+    localStorage.setItem("Password: ", password);
     fetch('/JAT_war_exploded/loginPage', {
             method: 'POST',
             headers: {
@@ -23,5 +25,9 @@ function validateLoginForm(){
         })
             .then(response => response.json())
             .then(data => console.log(data))
-            .catch(error => localStorage.setItem("Error:", error));
+            .catch(error => console.log(error));
+}
+
+function hashPassword(password) {
+    return sha256(password);
 }

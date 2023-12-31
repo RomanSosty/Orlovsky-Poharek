@@ -1,0 +1,17 @@
+{
+  "name": "jat",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/RomanSosty/Orlovsky-Poharek.git"
+  },
+  "private": true,
+  "dependencies": {
+    "js-sha256": "^0.10.1"
+  }
+}
