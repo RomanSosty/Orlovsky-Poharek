@@ -377,6 +377,5 @@
 <script type="module" src="js/newMember.js"></script>
 <script type="module" src="js/agreeToPolicy.js"></script>
 <script type="module" src="js/validateForm.js"></script>
-<script type="module" src="js/loginPage.js"></script>
 </body>
 </html>
