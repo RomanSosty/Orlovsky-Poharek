@@ -296,6 +296,16 @@
                 Závazně odeslat
             </button>
         </div>
+        <div class="mt-5">
+            <button
+                    id="login"
+                    aria-checked="false"
+                    type="button"
+                    class="block w-1/4 rounded-md bg-white border border-gray-300 font-semibold px-2.0 py-1.5 text-center text-sm  shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+            >
+                Přihlásit se
+            </button>
+        </div>
     </form>
 
     <form id="newMemberForm" class="mx-auto mt-16 max-w-xl sm:mt-20 hidden">
@@ -362,20 +372,10 @@
             </div>
         </div>
     </form>
-    <div class="mt-5">
-        <button
-                id="login"
-                aria-checked="false"
-                type="button"
-                class="block w-1/4 rounded-md bg-white border border-gray-300 font-semibold px-2.0 py-1.5 text-center text-sm  shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-        >
-            Přihlásit se
-        </button>
-    </div>
+
 </div>
 <script type="module" src="js/newMember.js"></script>
 <script type="module" src="js/agreeToPolicy.js"></script>
 <script type="module" src="js/validateForm.js"></script>
-<script type="module" src="js/loginPage.js"></script>
 </body>
 </html>
