@@ -44,8 +44,10 @@ public class LoginPageServlet extends HttpServlet {
 
             if(user == null){
                 System.out.println("Přihlášení se nezdařilo");
+                response.sendRedirect("/JAT_war_exploded/index.jsp");
             }else{
                 System.out.println("Přihlášen");
+                response.sendRedirect("/JAT_war_exploded/overview.jsp");
             }
 
             tx.commit();
@@ -58,12 +60,7 @@ public class LoginPageServlet extends HttpServlet {
             em.close();
             emf.close();
         }
-
-        response.setHeader("Access-Control-Allow-Origin", "*");
-        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-        response.setHeader("Access-Control-Allow-Headers", "Content-Type");
         response.setContentType("application/json");
-        response.sendRedirect("login.jsp");
     }
 
     private Optional<User> loginCheck(String password, String login, EntityManager em){
